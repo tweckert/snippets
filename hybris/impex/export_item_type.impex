@@ -1,5 +1,7 @@
 #
-# replace 'SomeItemType' by the hybris item type that should be exported,
+# Exports all items of a hybris item type.
+#
+# Usage: replace 'SomeItemType' by the hybris item type that should be exported,
 # modify the 'INSERT' impex line to export the desired item attributes
 #
 "#% impex.setTargetFile( ""SomeItemType.csv"" );"

@@ -1,5 +1,7 @@
 #
-# replace 'SomeItemType' by the hybris item type who's items should be removed
+# Removes all items of a hybris item type.
+#
+# Usage: replace 'SomeItemType' by the hybris item type who's items should be removed
 #
 REMOVE SomeItemType [batchmode=true];itemType(code)[unique=true]
 ;SomeItemType;
