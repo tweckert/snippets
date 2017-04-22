@@ -1,0 +1,77 @@
+INSERT_UPDATE ClassificationSystem;defaultCatalog[allownull=true];id[unique=true,allownull=true];name[lang=de];name[lang=en];supplier(uid)
+;false;DEMO_CLA;Demo Klassifikation;Demo Classification;
+;false;DEMO_PIM;Demo PIM;Demo PIM;
+
+
+INSERT_UPDATE ClassificationSystemVersion;active[allownull=true];catalog(id)[unique=true,forceWrite=true,allownull=true];version[unique=true,allownull=true]
+;true;DEMO_CLA;Staged
+;false;DEMO_CLA;Online
+;true;DEMO_PIM;Staged
+;false;DEMO_PIM;Online
+
+
+INSERT_UPDATE ClassificationSystem;activeCatalogVersion(catalog(id),version);defaultCatalog[allownull=true];id[unique=true,allownull=true];name[lang=de];name[lang=en];supplier(uid)
+;DEMO_CLA:Staged;false;DEMO_CLA;Demo Klassifikation;Demo Classification;
+;DEMO_PIM:Staged;false;DEMO_PIM;Demo PIM;Demo PIM;
+
+
+INSERT_UPDATE DemoPrototypeClassificationAttributeUnit;code[unique=true];systemVersion(catalog(id),version)[unique=true,forceWrite=true,allownull=true];name[lang=de];name[lang=en];symbol[allownull=true];unitType[unique=true];unitTypeText[lang=de];unitTypeText[lang=en];conversionFactor;isoCode[allownull=true];convertibleUnits[allownull=true]
+# density per cubic meter
+;KILOGRAM_PER_CUBIC_METER;DEMO_CLA:Staged;Kilogramm pro Kubikmeter;Kilogram per cubic meter;kg/m³;DENSITY_PER_CUBIC_METER;Dichte;Density;1;KMQ;GRAM_PER_CUBIC_METER,MILLIGRAM_PER_CUBIC_METER;
+;GRAM_PER_CUBIC_METER;DEMO_CLA:Staged;Gramm pro Kubikmeter;Gram per cubic meter;g/m³;DENSITY_PER_CUBIC_METER;Dichte;Density;1000;A93;MILLIGRAM_PER_CUBIC_METER;
+;MILLIGRAM_PER_CUBIC_METER;DEMO_CLA:Staged;Millgramm pro Kubikmeter;Milligram per cubic meter;mg/m³;DENSITY_PER_CUBIC_METER;Dichte;Density;1000000;GP;;
+# pressure per Pascal
+;GIGA_PASCAL;DEMO_CLA:Staged;Gigapascal;Gigapascal;gPa;PRESSURE_PASCAL;Druck (Pascal);Pressure (Pascal);1;A89;GIGA_PASCAL,DEKA_PASCAL,HECTO_PASCAL,KILO_PASCAL,PASCAL,MILLI_PASCAL;
+;DEKA_PASCAL;DEMO_CLA:Staged;Dekapascal;Decapascal;daPa;PRESSURE_PASCAL;Druck (Pascal);Pressure (Pascal);100000000;;;
+;HECTO_PASCAL;DEMO_CLA:Staged;Hektopascal;Hectopascal;hPa;PRESSURE_PASCAL;Druck (Pascal);Pressure (Pascal);10000000;A97;;
+;KILO_PASCAL;DEMO_CLA:Staged;Kilopascal;Kilopascal;kPa;PRESSURE_PASCAL;Druck (Pascal);Pressure (Pascal);1000000;KPA;;
+;PASCAL;DEMO_CLA:Staged;Pascal;Pascal;Pa;PRESSURE_PASCAL;Druck (Pascal);Pressure (Pascal);1000000000;PAL;
+;MILLI_PASCAL;DEMO_CLA:Staged;Millipascal;Millipascal;mPa;PRESSURE_PASCAL;Druck (Pascal);Pressure (Pascal);1000000000000;74;;
+# temperature
+;FAHRENHEIT;DEMO_CLA:Staged;Grad Fahrenheit;Degrees Fahrenheit;°F;TEMPERATURE;Temperatur;Temperature;;FAH;;
+;CELCIUS;DEMO_CLA:Staged;Grad Celcius;Degrees Celcius;°C;TEMPERATURE;Temperatur;Temperature;;CEL;;
+;KELVIN;DEMO_CLA:Staged;Grad Kelvin;Degrees Kelvin;K;TEMPERATURE;Temperatur;Temperature;;KEL;;
+
+
+INSERT_UPDATE ClassificationClass;code[unique=true,allownull=true];catalog(id)[allownull=true];catalogVersion(catalog(id),version)[unique=true,forceWrite=true,allownull=true];name[lang=de];name[lang=en];supercategories(catalogVersion(catalog(id),version),code)
+# root
+;STD_ROOT;DEMO_CLA;DEMO_CLA:Staged;Bewertungsarten;Valuation types;;
+# density
+;STD_EHS_1013_005;DEMO_CLA;DEMO_CLA:Staged;Bewertungsart Dichte;Valuation type density;DEMO_CLA:Staged:STD_ROOT;
+# pressure
+;STD_EHS_1013_003;DEMO_CLA;DEMO_CLA:Staged;Bewertungsart Druck;Valuation type pressure;DEMO_CLA:Staged:STD_ROOT;
+# color
+;STD_EHS_1013_008;DEMO_CLA;DEMO_CLA:Staged;Bewertungsart Farbe;Valuation type color;DEMO_CLA:Staged:STD_ROOT;
+
+
+INSERT_UPDATE ClassificationAttributeValue;code[unique=true];systemVersion(catalog(id),version)[unique=true,forceWrite=true,allownull=true];name[lang=de];name[lang=en];
+;DIN_53479;DEMO_CLA:Staged;DIN 53479;DIN 53479
+;DIN_EN_ISO_2811_1;DEMO_CLA:Staged;DIN EN ISO 2811-1;DIN EN ISO 2811-1
+;COLORLESS;DEMO_CLA:Staged;farblos;colorless
+;COLOR_WHITE;DEMO_CLA:Staged;weiss;white
+;COLOR_RED;DEMO_CLA:Staged;rot;red
+;COLOR_GREEN;DEMO_CLA:Staged;grün;green
+;COLOR_BLUE;DEMO_CLA:Staged;blau;blue
+
+
+INSERT_UPDATE ClassificationAttribute;code[unique=true,forceWrite=true,allownull=true];systemVersion(catalog(id),version)[unique=true,allownull=true];name[lang=de];name[lang=en];defaultAttributeValues(code,systemVersion(catalog(id),version))[mode=replace]
+;DENSITY;DEMO_CLA:Staged;Dichte;Density;
+;PRESSURE;DEMO_CLA:Staged;Druck;Pressure;
+;METHOD;DEMO_CLA:Staged;Methode;Method;DIN_53479:DEMO_CLA:Staged,DIN_EN_ISO_2811_1:DEMO_CLA:Staged;
+;TEMPERATURE;DEMO_CLA:Staged;Temperatur;Temperature;
+;PRECISION;DEMO_CLA:Staged;Genauigkeit;Precision;
+;COLOR;DEMO_CLA:Staged;Farbe;Color;
+
+
+INSERT_UPDATE ClassAttributeAssignment;classificationClass(code,catalogVersion(catalog(id),version))[unique=true];classificationAttribute(code,systemVersion(catalog(id),version))[unique=true];attributetype(code);unit(code);attributeValues(code,systemVersion(catalog(id),version))[mode=replace];localized[allownull=false];
+# density
+;STD_EHS_1013_005:DEMO_CLA:Staged;DENSITY:DEMO_CLA:Staged;number;GRAM_PER_CUBIC_METER;;false;
+;STD_EHS_1013_005:DEMO_CLA:Staged;METHOD:DEMO_CLA:Staged;enum;;DIN_53479:DEMO_CLA:Staged,DIN_EN_ISO_2811_1:DEMO_CLA:Staged;false;
+;STD_EHS_1013_005:DEMO_CLA:Staged;TEMPERATURE:DEMO_CLA:Staged;number;CELCIUS;;false;
+;STD_EHS_1013_005:DEMO_CLA:Staged;PRECISION:DEMO_CLA:Staged;string;;;true;
+# pressure
+;STD_EHS_1013_003:DEMO_CLA:Staged;PRESSURE:DEMO_CLA:Staged;number;PASCAL;;false;
+;STD_EHS_1013_003:DEMO_CLA:Staged;METHOD:DEMO_CLA:Staged;enum;;DIN_53479:DEMO_CLA:Staged,DIN_EN_ISO_2811_1:DEMO_CLA:Staged;false;
+;STD_EHS_1013_003:DEMO_CLA:Staged;TEMPERATURE:DEMO_CLA:Staged;number;CELCIUS;;false;
+# color
+;STD_EHS_1013_008:DEMO_CLA:Staged;COLOR:DEMO_CLA:Staged;enum;;COLORLESS:DEMO_CLA:Staged,COLOR_WHITE:DEMO_CLA:Staged,COLOR_RED:DEMO_CLA:Staged,COLOR_GREEN:DEMO_CLA:Staged,COLOR_BLUE:DEMO_CLA:Staged;false;

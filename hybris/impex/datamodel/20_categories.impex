@@ -1,0 +1,15 @@
+INSERT_UPDATE Category;code[unique=true,allownull=true];catalog(id)[allownull=true];catalogVersion(catalog(id),version)[unique=true,forceWrite=true,allownull=true];name[lang=de];name[lang=en];supercategories(catalogVersion(catalog(id),version),code)
+# product applications
+;Root_Apps;DEMO_CLA;DEMO_CLA:Staged;Anwendungen;Applications;;
+;Category_Apps_1;DEMO_CLA;DEMO_CLA:Staged;Kategorie Anwendungen 1;Category Application 1;DEMO_CLA:Staged:Root_Apps;
+;Category_Apps_2;DEMO_CLA;DEMO_CLA:Staged;Kategorie Anwendungen 2;Category Application 2;DEMO_CLA:Staged:Category_Apps_1;
+# product groups
+;Root_Groups;DEMO_CLA;DEMO_CLA:Staged;Produktgruppen;Product groups;;
+;Category_Groups_1;DEMO_CLA;DEMO_CLA:Staged;Kategorie Produktgruppe 1;Category Product Group 1;DEMO_CLA:Staged:Root_Groups;
+;Category_Groups_2;DEMO_CLA;DEMO_CLA:Staged;Kategorie Produktgruppe 2;Category Product Group 2;DEMO_CLA:Staged:Category_Groups_1;
+# product brands
+;Root_Brands;DEMO_CLA;DEMO_CLA:Staged;Marken;Brands;;
+;Category_Brands_1;DEMO_CLA;DEMO_CLA:Staged;Kategorie Marke 1;Category Brand 1;DEMO_CLA:Staged:Root_Brands;
+# business divisions
+;Root_Divisions;DEMO_CLA;DEMO_CLA:Staged;Geschäftsbereiche;Business Divisions;;
+;Category_Divisions_1;DEMO_CLA;DEMO_CLA:Staged;Kategorie Geschäftsbereich 1;Category Business Division 1;DEMO_CLA:Staged:Root_Divisions;

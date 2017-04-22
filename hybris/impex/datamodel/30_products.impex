@@ -1,0 +1,60 @@
+INSERT_UPDATE DemoProduct1;code[unique=true,allownull=true];approvalStatus(code,itemtype(code));catalog(id)[allownull=true];catalogVersion(catalog(id),version)[unique=true];variantType(code);name[lang=de];name[lang=en]
+;000000005717;check:ArticleApprovalStatus;DEMO_PIM;DEMO_PIM:Staged;DemoVariantProduct1;Demo Basisprodukt 1;Demo Base Product 1
+
+
+INSERT_UPDATE DemoVariantProduct1;code[unique=true];approvalStatus(code,itemtype(code));catalog(id)[allownull=true];catalogVersion(catalog(id),version)[unique=true];baseProduct(catalogVersion(catalog(id),version),code);name[lang=de];name[lang=en];description[lang=de];description[lang=en]
+;60004711;check:ArticleApprovalStatus;DEMO_PIM;DEMO_PIM:Staged;DEMO_PIM:Staged:000000005717;Demo Produktvariante 1;Demo Variant Product 1;Beschreibung Produktvariante;Variant product description;
+;60004712;check:ArticleApprovalStatus;DEMO_PIM;DEMO_PIM:Staged;DEMO_PIM:Staged:000000005717;Demo Produktvariante 2;Demo Variant Product 2;Beschreibung Produktvariante;Variant product description;
+
+
+INSERT_UPDATE Category;code[unique=true];catalogVersion(catalog(id),version)[unique=true];products(catalogVersion(catalog(id),version),code);
+# product application
+;Category_Apps_1;DEMO_CLA:Staged;DEMO_PIM:Staged:000000005717;
+# product group
+;Category_Groups_2;DEMO_CLA:Staged;DEMO_PIM:Staged:000000005717;
+# product brand
+;Category_Brands_1;DEMO_CLA:Staged;DEMO_PIM:Staged:000000005717;
+# business division
+;Category_Divisions_1;DEMO_CLA:Staged;DEMO_PIM:Staged:000000005717;
+
+
+INSERT_UPDATE ClassificationClass;code[unique=true];catalogVersion(catalog(id),version)[unique=true];products(catalogVersion(catalog(id),version),code);
+# valuation type - density
+;STD_EHS_1013_005;DEMO_CLA:Staged;DEMO_PIM:Staged:000000005717;
+# valuation type - pressure
+;STD_EHS_1013_003;DEMO_CLA:Staged;DEMO_PIM:Staged:000000005717;
+# valuation type - color
+;STD_EHS_1013_008;DEMO_CLA:Staged;DEMO_PIM:Staged:000000005717;
+
+
+INSERT_UPDATE ProductFeature;product(catalogVersion(catalog(id),version), code)[unique=true];classificationAttributeAssignment(classificationClass(code,catalogVersion(catalog(id),version)),classificationAttribute(code,systemVersion(catalog(id),version)))[unique=true];featurePosition;qualifier[unique=true];unit(code, unitType)[unique=true];valueDetails;valuePosition[unique=true];valueType;value[translator=de.hybris.platform.catalog.jalo.classification.impex.ProductFeatureValueTranslator];language(isocode)[unique=true]
+#
+# 60004711
+#
+# density
+;DEMO_PIM:Staged:60004711;STD_EHS_1013_005:DEMO_CLA:Staged:DENSITY:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_005.DENSITY;GRAM_PER_CUBIC_METER:DENSITY_PER_CUBIC_METER;;0;1;number,java.lang.Double,17;
+;DEMO_PIM:Staged:60004711;STD_EHS_1013_005:DEMO_CLA:Staged:METHOD:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_005.METHOD;;;0;1;enum,DEMO_CLA,Staged,DIN_53479;
+;DEMO_PIM:Staged:60004711;STD_EHS_1013_005:DEMO_CLA:Staged:TEMPERATURE:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_005.TEMPERATURE;CELCIUS:TEMPERATURE;;0;1;number,java.lang.Double,21;
+;DEMO_PIM:Staged:60004711;STD_EHS_1013_005:DEMO_CLA:Staged:PRECISION:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_005.PRECISION;;;0;1;string,ca.;de
+;DEMO_PIM:Staged:60004711;STD_EHS_1013_005:DEMO_CLA:Staged:PRECISION:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_005.PRECISION;;;0;1;string,circa;en
+# pressure
+;DEMO_PIM:Staged:60004711;STD_EHS_1013_003:DEMO_CLA:Staged:PRESSURE:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_003.PRESSURE;PASCAL:PRESSURE_PASCAL;;0;1;number,java.lang.Double,23;
+;DEMO_PIM:Staged:60004711;STD_EHS_1013_003:DEMO_CLA:Staged:METHOD:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_003.METHOD;;;0;1;enum,DEMO_CLA,Staged,DIN_EN_ISO_2811_1;
+;DEMO_PIM:Staged:60004711;STD_EHS_1013_003:DEMO_CLA:Staged:TEMPERATURE:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_003.TEMPERATURE;CELCIUS:TEMPERATURE;;0;1;number,java.lang.Double,15;
+# color
+;DEMO_PIM:Staged:60004711;STD_EHS_1013_008:DEMO_CLA:Staged:COLOR:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_008.COLOR;;;0;1;enum,DEMO_CLA,Staged,COLORLESS;
+#
+# 60004712
+#
+# density
+;DEMO_PIM:Staged:60004712;STD_EHS_1013_005:DEMO_CLA:Staged:DENSITY:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_005.DENSITY;GRAM_PER_CUBIC_METER:DENSITY_PER_CUBIC_METER;;0;1;number,java.lang.Double,12
+;DEMO_PIM:Staged:60004712;STD_EHS_1013_005:DEMO_CLA:Staged:METHOD:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_005.METHOD;;;0;1;enum,DEMO_CLA,Staged,DIN_53479
+;DEMO_PIM:Staged:60004712;STD_EHS_1013_005:DEMO_CLA:Staged:TEMPERATURE:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_005.TEMPERATURE;CELCIUS:TEMPERATURE;;0;1;number,java.lang.Double,21
+;DEMO_PIM:Staged:60004712;STD_EHS_1013_005:DEMO_CLA:Staged:PRECISION:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_005.PRECISION;;;0;1;string,exakt;de
+;DEMO_PIM:Staged:60004712;STD_EHS_1013_005:DEMO_CLA:Staged:PRECISION:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_005.PRECISION;;;0;1;string,exactly;en
+# pressure
+;DEMO_PIM:Staged:60004712;STD_EHS_1013_003:DEMO_CLA:Staged:PRESSURE:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_003.PRESSURE;PASCAL:PRESSURE_PASCAL;;0;1;number,java.lang.Double,36;
+;DEMO_PIM:Staged:60004712;STD_EHS_1013_003:DEMO_CLA:Staged:METHOD:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_003.METHOD;;;0;1;enum,DEMO_CLA,Staged,DIN_EN_ISO_2811_1;
+;DEMO_PIM:Staged:60004712;STD_EHS_1013_003:DEMO_CLA:Staged:TEMPERATURE:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_003.TEMPERATURE;CELCIUS:TEMPERATURE;;0;1;number,java.lang.Double,15;
+# color
+;DEMO_PIM:Staged:60004712;STD_EHS_1013_008:DEMO_CLA:Staged:COLOR:DEMO_CLA:Staged;0;DEMO_CLA/Staged/STD_EHS_1013_008.COLOR;;;0;1;enum,DEMO_CLA,Staged,COLORLESS;
