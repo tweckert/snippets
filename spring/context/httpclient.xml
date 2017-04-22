@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<!-- Apache HTTPClient configuration -->
+
+	<bean id="httpConnectionManager" class="org.apache.http.impl.conn.PoolingHttpClientConnectionManager">
+		<!-- the simultaneous connection limit per HTTP route (= target host) -->
+		<property name="defaultMaxPerRoute" value="20" />
+		<!-- the overall connection limit for the connection pool -->
+		<property name="maxTotal" value="100" />
+	</bean>
+
+	<bean id="httpRequestConfigBuilder" class="org.apache.http.client.config.RequestConfig" factory-method="custom">
+		<!-- the socket timeout (SO_TIMEOUT) in milliseconds, which is the timeout for waiting for data -->
+		<property name="socketTimeout" value="60000" />
+		<!-- the timeout in milliseconds until a connection is established -->
+		<property name="connectTimeout" value="30000" />
+		<!-- the timeout in milliseconds used when requesting a connection from the connection manager -->
+		<property name="connectionRequestTimeout" value="30000" />
+	</bean>
+
+	<bean id="httpRequestConfig" factory-bean="httpRequestConfigBuilder" factory-method="build" />
+
+	<bean id="httpClientBuilder" class="org.apache.http.impl.client.HttpClientBuilder" factory-method="create">
+		<property name="defaultRequestConfig" ref="httpRequestConfig" />
+		<property name="connectionManager" ref="httpConnectionManager" />
+	</bean>
+
+	<bean id="httpClient" factory-bean="httpClientBuilder" factory-method="build" />
+
+	<bean id="httpRequestFactory" class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+		<constructor-arg ref="httpClient"/>
+	</bean>
+
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+		<constructor-arg ref="httpRequestFactory" />
+	</bean>
+
+</beans>
