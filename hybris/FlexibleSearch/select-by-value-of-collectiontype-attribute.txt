@@ -1,0 +1,6 @@
+SELECT 
+	{pk} 
+FROM 
+	{SomeType} 
+WHERE 
+	{collectionTypeAttrib} LIKE CONCAT('%', CONCAT(someValue,'%'))
