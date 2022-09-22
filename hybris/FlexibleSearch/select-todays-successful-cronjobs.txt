@@ -1,0 +1,19 @@
+select
+    {c:code} as code,
+    {c:active} as active,
+    {j:code} as job,
+    {c:startTime} as start_time,
+    {c:endTime} as end_time,
+    timediff({c:endTime}, {c:startTime}) as duration_hh_mm_ss,
+    {enum:code} as result,
+    {c:nodeId} as node_id
+from
+	{CronJob as c
+    join Job as j on {j:pk} = {c:job}
+    join EnumerationValue as enum on {enum.pk} = {c:result}}
+where
+    {c:active} = 1
+    and datediff(now(), {c:endTime}) < 2
+    and date({c:startTime}) = curdate()
+order by
+	{c:endTime} desc

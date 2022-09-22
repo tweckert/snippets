@@ -1,0 +1,47 @@
+select
+    date_format({o:creationtime},'%Y/%m/%d') as creation_time,
+    {o:code} as cart_or_order_code,
+    {os:code} as order_status,
+    {ct:code} as type,
+    case {ct:code}
+        when 'Cart' then {ce:entryNumber}
+        when 'Order' then {oe:entryNumber}
+    end as entry_number,
+
+    case {ct:code}
+        when 'Cart' then truncate({ce:quantity}, 0)
+        when 'Order' then truncate({oe:quantity}, 0)
+    end as quantity,
+
+    case {ct:code}
+        when 'Cart' then concat('€', format({ce:basePrice}, 2, 'de_DE'))
+        when 'Order' then concat('€', format({oe:basePrice}, 2, 'de_DE'))
+    end as base_price,
+
+    case {ct:code}
+        when 'Cart' then {ce:pk}
+        when 'Order' then {oe:pk}
+    end as cart_entry_or_order_entry_pk,
+
+    case {ct.code}
+        when 'Cart' then {cep.code}
+        when 'Order' then {oep.code}
+    end as product_code,
+
+    case {ct.code}
+        when 'Cart' then {cep:name[de]}
+        when 'Order' then {oep:name[de]}
+    end as product_name
+from
+	{AbstractOrder as o
+    join ComposedType as ct on {ct:pk} = {o:itemtype}
+    left join OrderStatus as os on {os:pk} = {o:status}
+    left join OrderEntry as oe on {oe:order} = {o:pk}
+    left join CartEntry as ce on {ce:order} = {o:pk}
+    left join Product as oep on {oe:product} = {oep:pk}
+    left join Product as cep on {ce:product} = {cep:pk}}
+where
+    {o:creationTime} >= curdate()
+order by
+    {o:code} desc,
+    entry_number

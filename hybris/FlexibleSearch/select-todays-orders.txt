@@ -1,0 +1,17 @@
+select
+    date_format({o:creationtime},'%Y/%m/%d') as creation_time,
+    {o:code} as order_code,
+    {os:code} as order_status,
+    {dm:code} as delivery_mode,
+    {pm:code} as payment_mode,
+    {ps:code} as payment_status
+from
+	{Order as o
+    left join OrderStatus as os on {os:pk} = {o:status}
+    left join DeliveryMode as dm on {dm:pk} = {o:deliveryMode}
+    left join PaymentMode as pm on {pm:pk} = {o:paymentMode}
+    left join PaymentStatus as ps on {ps:pk} = {o:paymentStatus}}
+where
+	{o:creationTime} >= curdate()
+order by
+    {o.creationTime} desc

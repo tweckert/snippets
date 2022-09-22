@@ -1,0 +1,15 @@
+select
+    {c:code} as code,
+    {c:active} as active,
+    {j:code} as job,
+    {c:startTime} as start_time,
+    {enum:code} as result,
+    {c:nodeId} as node_id
+from
+	{CronJob as c
+    join Job as j on {j:pk} = {c:job}
+    join EnumerationValue as enum on {enum.pk} = {c:result}}
+where
+    {c:active} = 1
+    and date({c:startTime}) = curdate()
+	and {enum:code} != 'SUCCESS'

@@ -1,0 +1,8 @@
+select
+	{o:pk}
+from
+	{Order as o}
+where
+	{o:modifiedtime} <= date_sub(now(), interval 42 month)
+order by
+	{o:modifiedtime} asc

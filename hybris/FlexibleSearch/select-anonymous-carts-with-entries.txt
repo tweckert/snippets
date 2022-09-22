@@ -1,0 +1,16 @@
+select
+    {u:uid} as user_id, {c:code} as cart_code, {p:code} as product_code, {p:name} as product_name,
+    {e:quantity} as quantity, {e:totalPrice} as total, {e:modifiedtime} as cart_entry_modified_time
+from
+    {customer as u
+     join cart as c on {u:pk}={c:user}
+     join cartentry as e on {e:order}={c:pk}
+     join product as p on {e:product}={p:pk}}
+where
+    {u:uid} = 'anonymous'
+order by
+    {c:modifiedtime} desc,
+    {e:modifiedtime} desc,
+    {u:uid},
+    {c:code},
+    {e:entryNumber}

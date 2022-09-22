@@ -1,0 +1,13 @@
+select
+    date_format({c:creationtime},'%Y/%m/%d') as cart_creationtime,
+    count(distinct{c:pk}) as cart_count
+from
+    {customer as u
+     join cart as c on {u:pk}={c:user}}
+where
+    {u:uid} = 'anonymous'
+group by
+    cart_creationtime
+order by
+    cart_creationtime desc
+limit 10

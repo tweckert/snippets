@@ -1,0 +1,10 @@
+select
+    date_format({o:date},'%Y/%m/%d') as order_date,
+    format(count(distinct{o:pk}), 0, 'de_DE') as order_count
+from
+    {Order as o}
+group by
+    order_date
+order by
+    order_date desc
+limit 10

@@ -1,0 +1,14 @@
+select
+	{u:uid} as user, count(distinct({c:pk})) as cart_count
+from
+	{User as u
+	join Cart as c on {c:user} = {u:pk}}
+where
+	{c:saveTime} is null
+    and {c:quoteReference} is null
+group by
+	{u:pk}
+having
+	cart_count > 1
+order by
+	cart_count desc

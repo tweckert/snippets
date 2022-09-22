@@ -1,0 +1,11 @@
+select
+	{cronjob:code}
+from
+	{CatalogVersionSyncCronJob as cronjob
+    join CatalogVersionSyncJob as performable on {performable:pk} = {cronjob:job}
+    join EnumerationValue as cronjob_status on {cronjob_status:pk} = {cronjob:status}
+    join EnumerationValue as cronjob_result on {cronjob_result:pk} = {cronjob:result}}
+where
+	{performable:code} = "sync mycareContentCatalog:Staged->Online"
+    and {cronjob_status:code} = "FINISHED"
+    and {cronjob_result:code} != "SUCCESS"
